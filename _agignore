@@ -1,0 +1,11 @@
+*.d
+*.o
+*.pb.h
+*.pb.cc
+*.log
+
+tags
+compile_commands.json
+
+codelab
+Makefile

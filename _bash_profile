@@ -1,0 +1,16 @@
+# Load by tmux
+if [ -n "$ZSH_VERSION" ]; then
+    if [ -f $HOME/.zshrc ]; then
+        source $HOME/.zshrc
+    else
+        echo "Error: .zshrc not found!!"
+    fi
+elif [ -n "$BASH_VERSION" ]; then
+    if [ -f $HOME/.bashrc ]; then
+        source $HOME/.bashrc
+    else
+        echo "Error: .bashrc not found!!"
+    fi
+else
+    echo "Unsupported bash version"
+fi
