@@ -1,0 +1,22 @@
+[color]
+  ui = true
+[core]
+  editor = nvim
+  # pager = delta
+[alias]
+  lg = log --graph --abbrev-commit --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)'
+[user]
+  name = Jin Tan
+[push]
+  default = simple
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
+[merge]
+  conflictstyle = diff3
+[diff]
+  colorMoved = default
+[oh-my-zsh]
+  hide-status = 1
+  hide-dirty = 1

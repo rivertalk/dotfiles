@@ -1,0 +1,79 @@
+#!/bin/sh
+
+alias tmux='tmux -2'
+alias ssh='TERM=xterm-256color ssh'
+alias vimdiff='vimdiff --noplugin'
+
+if [[ "$OSTYPE" = "darwin"* ]]; then
+  alias xopen='open'
+  alias ctags="$(brew --prefix)/bin/ctags"
+fi
+
+# let fzf respect .agignore file
+export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_CTRL_T_COMMAND='ag -g ""'
+
+# history configs
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+HISTCONTROL=ignoreboth
+HISTIGNORE='ll:bg:fg:history'
+
+# share history between tmux panes
+export PROMPT_COMMAND="history -a; history -n"
+
+# git log lang problem
+export LESSCHARSET=utf-8
+
+# Ignore ctrl-D
+set -o ignoreeof
+
+# Setup customized environment
+if [ -f ~/.aliases.local ]; then
+  . ~/.aliases.local
+fi
+
+# Prefer local binaries
+export PATH=~/.local/bin:$PATH
+
+# Setup C++ enviroment
+# Always generate compile database
+export CMAKE_EXPORT_COMPILE_COMMANDS=1
+
+# patch local bin in front of PATH
+if [[ -d ${MY_GIT_ROOT}/llvm-project/built/bin ]]; then
+  export PATH=${MY_GIT_ROOT}/llvm-project/built/bin:$PATH
+fi
+
+# Setup Rust/Cargo environment
+if [ -f $HOME/.cargo/env ]; then
+    . "$HOME/.cargo/env"
+fi
+
+# Setup golang environment.
+case ":${PATH}:" in
+    *:"$HOME/go/bin":*)
+        ;;
+    *)
+        export PATH="$HOME/go/bin:$PATH"
+        ;;
+esac
+
+# Setup node environment
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+## define g2 function
+export MY_GIT_ROOT=~/mygit
+function g2() {
+    cd $MY_GIT_ROOT/"$1"
+}
+
+function _g2_autocomplete() {
+    local -a projects
+    projects=($(ls $MY_GIT_ROOT))
+    _describe 'github project' projects
+}
+compdef _g2_autocomplete g2
+

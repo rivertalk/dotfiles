@@ -1,0 +1,5 @@
+!/.git/
+!/bazel-bin/
+!/bazel-out/
+!/bazel-ppu/
+!/bazel-testlogs/

@@ -1,0 +1,72 @@
+# color prompt doesn't work in TUI mode
+# set prompt \001\033[1;36m\002(gdb) \001\033[0m\002
+
+# So that one can read structures efficiently
+set print pretty on
+set print object on
+set print vtbl on
+
+# history across invocations
+set history save on
+set history filename ~/.gdb_history
+
+set height 0
+set width 0
+
+# The following options may not working for lower version of GDB, disable them for compatibility.
+#set disassembly-flavor intel
+#set tui border-kind acs
+#set tui border-mode normal
+#set tui active-border-mode bold
+
+# define a hexdump command.
+# Note we use printf and sed here to output \r characters needed in -tui mode.
+# This is easier than messing with `shell stty onlcr` as that could
+# impact the terminal after exiting a non -tui gdb session.
+define hd
+dump binary memory /tmp/dump.bin $arg0 $arg0+$arg1
+shell printf '\r\n'; od -Ax -tx1z -v /tmp/dump.bin | sed 's/$/\r/'
+end
+
+# Setup STL pretty print
+#python
+#import sys
+#import os
+#sys.path.insert(1, os.environ['MY_PF_ROOT'] + '/sw/devtools/Agora/Prebuilt/Linux/ubuntu_12_04/gcc-6_2_0/share/gcc-6.2.0/python')
+#from libstdcxx.v6.printers import register_libstdcxx_printers
+#register_libstdcxx_printers (None)
+#end
+
+# boost pretty printers
+# Option 1: # https://github.com/mbalabin/Boost-Pretty-Printer
+#python
+#import sys
+#import os
+#sys.path.insert(1, os.environ['MY_GIT_ROOT'] + '/Boost-Pretty-Printer')
+#import boost
+#boost.register_printers(boost_version=(1,64,0))
+#end
+
+# Option 2: https://github.com/lekv/boost-gdb-printers
+#python
+#import sys
+#import gdb
+#print("Setting up Boost pretty printers")
+#sys.path.insert(0, '/usr/local/share/boost-gdb-printers')
+#import boost.v1_57 as boost
+#boost.register_pretty_printers(gdb)
+#end
+
+# cpython, auto-load seems not working for embedded python
+# add-auto-load-safe-path /home/jint/playground/mixed/Python-3.5.2/debug
+add-auto-load-safe-path /home/jint/playground/Python-3.5.2/debug/python-gdb.py
+
+# add Tools/gdb to PYTHONPATH, then we could use following command enable
+# > python import libpython
+#python
+#import sys
+#sys.path.insert(1, os.environ['MY_PF_SRC'] + '/Imports/Source/Python/Python-3_5_2/Tools/gdb')
+#end
+
+source /home/tanjin.tj/mygit/llvm-project/llvm/utils/gdb-scripts/prettyprinters.py
+
