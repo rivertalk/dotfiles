@@ -1,8 +1,8 @@
 -----------------------------------------------------------
--- File manager configuration file
+-- Formatter configuration file
 -----------------------------------------------------------
 
--- Plugin: nvim-tree
+-- Plugin: conform.nvim
 -- url: https://github.com/stevearc/conform.nvim
 
 local status_ok, conform = pcall(require, "conform")
