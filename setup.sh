@@ -67,10 +67,13 @@ function install_dotfiles() {
     ln -s -f $CUR_DIR/_npmrc ~/.npmrc
     mkdir -p ~/.config/nvim
     ln -s -f $CUR_DIR/_nvim/init.lua ~/.config/nvim/init.lua
-    rm -f ~/.config/nvim/lua
+    rm -rf ~/.config/nvim/lua
     ln -s $CUR_DIR/_nvim/lua ~/.config/nvim/lua
-    rm -f ~/.config/nvim/syntax
+    rm -rf ~/.config/nvim/syntax
     ln -s $CUR_DIR/_nvim/syntax ~/.config/nvim/syntax
+
+    mkdir -p ~/.config/ghostty
+    ln -s -f $CUR_DIR/_ghostty_config ~/.config/ghostty/config
 
     ln -s -f $CUR_DIR/_gdbinit ~/.gdbinit
     ln -s -f $CUR_DIR/_ctags ~/.ctags

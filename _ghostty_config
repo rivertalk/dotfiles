@@ -1,0 +1,2 @@
+# Map Option key to Alt (Meta) for tmux and other terminal apps
+macos-option-as-alt = true
