@@ -95,16 +95,9 @@ lazy.setup({
 
 		-- Statusline
 		{
-			"freddiehaddad/feline.nvim",
-			dependencies = {
-				"nvim-tree/nvim-web-devicons",
-				"lewis6991/gitsigns.nvim",
-			},
+			"nvim-lualine/lualine.nvim",
+			dependencies = { "nvim-tree/nvim-web-devicons" },
 		},
-		-- {
-		--   'nvim-lualine/lualine.nvim',
-		--   dependencies = { 'nvim-tree/nvim-web-devicons' }
-		-- },
 
 		-- Treesitter
 		{ "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
@@ -163,10 +156,10 @@ lazy.setup({
 		},
 
 		-- highlight current window
-		{
-			"levouh/tint.nvim",
-			lazy = false,
-			opts = {},
-		},
+		-- {
+		-- 	"levouh/tint.nvim",
+		-- 	lazy = false,
+		-- 	opts = {},
+		-- },
 	},
 })

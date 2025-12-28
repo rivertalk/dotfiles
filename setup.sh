@@ -66,13 +66,11 @@ function install_dotfiles() {
     ln -s -f $CUR_DIR/_pylintrc ~/.pylintrc
     ln -s -f $CUR_DIR/_npmrc ~/.npmrc
     mkdir -p ~/.config/nvim
-    # ln -s -f $CUR_DIR/nvim/coc-settings.json ~/.config/nvim/coc-settings.json
-    # ln -s -f $CUR_DIR/nvim/init.vim ~/.config/nvim/init.vim
-    ln -s -f $CUR_DIR/nvim/init.lua ~/.config/nvim/init.lua
-    rm ~/.config/nvim/lua
-    ln -s $CUR_DIR/nvim/lua ~/.config/nvim/lua
-    rm ~/.config/nvim/syntax
-    ln -s $CUR_DIR/nvim/syntax ~/.config/nvim/syntax
+    ln -s -f $CUR_DIR/_nvim/init.lua ~/.config/nvim/init.lua
+    rm -f ~/.config/nvim/lua
+    ln -s $CUR_DIR/_nvim/lua ~/.config/nvim/lua
+    rm -f ~/.config/nvim/syntax
+    ln -s $CUR_DIR/_nvim/syntax ~/.config/nvim/syntax
 
     ln -s -f $CUR_DIR/_gdbinit ~/.gdbinit
     ln -s -f $CUR_DIR/_ctags ~/.ctags
