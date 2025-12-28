@@ -65,6 +65,10 @@ function install_dotfiles() {
     ln -s -f $CUR_DIR/_inputrc ~/.inputrc
     ln -s -f $CUR_DIR/_pylintrc ~/.pylintrc
     ln -s -f $CUR_DIR/_npmrc ~/.npmrc
+
+    if [ -L ~/.config/nvim ]; then
+        rm ~/.config/nvim
+    fi
     mkdir -p ~/.config/nvim
     ln -s -f $CUR_DIR/_nvim/init.lua ~/.config/nvim/init.lua
     rm -rf ~/.config/nvim/lua
